@@ -4,9 +4,11 @@ import co.edu.unicauca.distribuidos.core.services.DTO.ClientDTO;
 import co.edu.unicauca.distribuidos.core.services.services.IServiceClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -30,7 +32,7 @@ public class ControllerClient {
 
     @PostMapping("/")
     @ResponseBody
-    public ClientDTO create(@RequestBody ClientDTO client){
+    public ClientDTO create(@Valid @RequestBody ClientDTO client){
         return this.serviceClient.createClient(client);
     }
 

@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 
-
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -30,7 +30,15 @@ public class ControllerManager {
 
     @PostMapping("/")
     @ResponseBody
-    public ManagerDTO create(@RequestBody ManagerDTO client){
+    public ManagerDTO create(@Valid @RequestBody ManagerDTO client){
+        if(client.getName().length() < 5 || client.getLastname().length() < 5
+                || client.getName().length() > 20 || client.getLastname().length() > 20){
+            return null;
+        }
+        if(client.getPassword().length()<10 || client.getUsername().length()<10
+                || client.getPassword().length()>20 || client.getUsername().length()>20){
+            return null;
+        }
         return this.serviceManager.createClient(client);
     }
 
